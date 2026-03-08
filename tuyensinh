@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tuyển Sinh</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link rel="stylesheet" href="hoaian.css">
+
+</head>
+
+<body>
+
+<header>
+<div class="logo">
+<img src="logosinh.png">
+</div>
+
+<nav>
+<a href="nhom1.html">🏠Trang chủ</a>
+<a href="nhom1muc2.html">📚Đào tạo</a>
+<a href="tuyensinh.html">🎓Tuyển Sinh</a>
+</nav>
+
+<div class="auth-buttons">
+<button class="btn-login" onclick="openLogin()">Đăng nhập</button>
+<button class="btn-signup" onclick="openRegister()">Đăng ký</button>
+</div>
+</header>
+
+<section class="tuyensinh-section">
+
+<div class="ts-title">
+
+<p class="update">📢 Cập nhật mới nhất</p>
+
+<h1>🎓 CẨM NANG TUYỂN SINH CÔNG NGHỆ 2025 - 2026</h1>
+
+<p class="ts-sub">
+Thông tin điểm chuẩn và tổ hợp xét tuyển các ngành
+Công nghệ thực phẩm, Công nghệ sinh học.
+</p>
+
+</div>
+
+
+<div class="ts-card">
+
+<h2>📊 Điểm Chuẩn & Tổ Hợp Xét Tuyển</h2>
+
+<div class="filter-box">
+
+<input type="text" id="searchInput" placeholder="🔎 Tìm trường hoặc ngành...">
+
+<select id="majorFilter">
+
+<option value="">Tất cả ngành</option>
+<option value="Công nghệ sinh học">Công nghệ sinh học</option>
+<option value="Công nghệ thực phẩm">Công nghệ thực phẩm</option>
+<option value="Công nghệ thực phẩm">Công nghệ thủy sản	</option>
+</select>
+
+</div>
+
+
+<table class="ts-table" id="tsTable">
+
+<thead>
+
+<tr>
+
+<th>🏫 Trường</th>
+<th>🎓 Ngành</th>
+<th>📚 Tổ Hợp</th>
+<th>⭐ Điểm Chuẩn</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+<td>ĐH Công Nghệ</td>
+<td>Công nghệ sinh học</td>
+<td>A00, B00</td>
+<td class="score high">26.5</td>
+</tr>
+
+<tr>
+<td>HUTECH</td>
+<td>Công thủy sản</td>
+<td>A00, B00, D07</td>
+<td class="score">22 - 24</td>
+</tr>
+
+<tr>
+<td>ĐH Hồng Bàng</td>
+<td>Công nghệ sinh học</td>
+<td>B00</td>
+<td class="score">21 - 23</td>
+</tr>
+
+<tr>
+<td>ĐH Cần Thơ</td>
+<td>Công nghệ thực phẩm</td>
+<td>A00, B00</td>
+<td class="score">24 - 25</td>
+</tr>
+
+<tr>
+<td>ĐH Bách Khoa</td>
+<td>Công nghệ sinh học</td>
+<td>A00, B00</td>
+<td class="score high">26 - 27</td>
+</tr>
+
+<tr>
+<td>ĐH Đồng Tháp</td>
+<td>Công nghệ thực phẩm</td>
+<td>B00</td>
+<td class="score">20 - 22</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+
+
+<!-- FORM ĐĂNG NHẬP -->
+<div id="loginForm" class="popup">
+<div class="popup-content">
+<span class="close" onclick="closeForm('loginForm')">&times;</span>
+
+<h2>Đăng nhập</h2>
+
+<input type="text" id="loginUser" placeholder="Tên đăng nhập">
+<input type="password" id="loginPass" placeholder="Mật khẩu">
+
+<button class="submit-btn" onclick="login()">Đăng nhập</button>
+
+<p>Chưa có tài khoản?
+<a href="#" onclick="switchToRegister()">Đăng ký</a>
+</p>
+</div>
+</div>
+
+<!-- FORM ĐĂNG KÝ -->
+<div id="registerForm" class="popup">
+<div class="popup-content">
+<span class="close" onclick="closeForm('registerForm')">&times;</span>
+
+<h2>Đăng ký</h2>
+
+<input type="text" id="regUser" placeholder="Tên đăng nhập">
+<input type="email" id="regEmail" placeholder="Email">
+<input type="password" id="regPass" placeholder="Mật khẩu">
+
+<button class="submit-btn" onclick="register()">Đăng ký</button>
+
+<p>Đã có tài khoản?
+<a href="#" onclick="switchToLogin()">Đăng nhập</a>
+</p>
+
+</div>
+</div>
+
+<script>
+
+function openLogin(){
+document.getElementById("loginForm").style.display="flex";
+}
+
+function openRegister(){
+document.getElementById("registerForm").style.display="flex";
+}
+
+function closeForm(id){
+document.getElementById(id).style.display="none";
+}
+
+function switchToRegister(){
+closeForm("loginForm");
+openRegister();
+}
+
+function switchToLogin(){
+closeForm("registerForm");
+openLogin();
+}
+
+</script>
+<script>
+
+const searchInput = document.getElementById("searchInput");
+const majorFilter = document.getElementById("majorFilter");
+const rows = document.querySelectorAll("#tsTable tbody tr");
+
+function filterTable(){
+
+const search = searchInput.value.toLowerCase();
+const major = majorFilter.value;
+
+rows.forEach(row=>{
+
+const school = row.children[0].textContent.toLowerCase();
+const majorText = row.children[1].textContent;
+
+const matchSearch = school.includes(search) || majorText.toLowerCase().includes(search);
+const matchMajor = major === "" || majorText === major;
+
+if(matchSearch && matchMajor){
+row.style.display="";
+}else{
+row.style.display="none";
+}
+
+});
+
+}
+
+searchInput.addEventListener("keyup",filterTable);
+majorFilter.addEventListener("change",filterTable);
+
+</script>
+<div class="sidebar">
+
+    <ul class="menu">
+
+    <li>
+    <a href="nhom1.html">🏠 Trang Chủ</a>
+    </li>
+
+    <li>
+    <a href="nhom1muc2.html">📚 Đào tạo</a>
+    </li>
+
+<li>
+<a href="tuyensinh.html">🎓 Tuyển Sinh</a>
+</li>
+    </ul>
+
+    <div class="section-title">Kết Nối</div>
+    <div class="divider"></div>
+
+    <div class="social">
+
+    <a href="https://www.facebook.com/an.hoai.632958" target="_blank">
+    <i class="fab fa-facebook" style="color:#1877f2"></i>
+    </a>
+
+    </div>
+
+    <div class="section-title">Liên Hệ</div>
+    <div class="divider"></div>
+
+    <div class="contact">
+    <p>📞 0948 653 908 </p>
+    <p>✉ caohoaian.cma.com</p>
+    </div>
+
+    </div>
+
+</body>
+</html>
