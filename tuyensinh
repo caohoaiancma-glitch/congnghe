@@ -18,7 +18,7 @@
 </div>
 
 <nav>
-<a href="nhom1.html">🏠Trang chủ</a>
+<a href="index.html">🏠Trang chủ</a>
 <a href="nhom1muc2.html">📚Đào tạo</a>
 <a href="tuyensinh.html">🎓Tuyển Sinh</a>
 </nav>
@@ -234,7 +234,7 @@ majorFilter.addEventListener("change",filterTable);
     <ul class="menu">
 
     <li>
-    <a href="nhom1.html">🏠 Trang Chủ</a>
+    <a href="index.html">🏠 Trang Chủ</a>
     </li>
 
     <li>
