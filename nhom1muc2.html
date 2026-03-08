@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đào tạo</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+
+:root {
+    --primary-bg: #f0f4ff;
+    --card-bg: rgba(255,255,255,0.9);
+        --accent-blue: #708ed6;
+        --text-dark: #333;
+    --shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+body{
+font-family:'Segoe UI',sans-serif;
+background:var(--primary-bg);
+margin:0;
+}
+
+/* HEADER giống hệt */
+header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+
+padding:15px 40px;
+height:70px;
+
+position:fixed;
+top:0;
+left:0;
+right:0;
+
+background:#e6ecff; /* màu menu khác nền */
+
+border-bottom:2px solid #cfd8ff; /* đường viền */
+
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+
+z-index:1000;
+
+box-sizing:border-box;
+}
+nav a{
+text-decoration:none;
+color:var(--text-dark);
+margin:0 15px;
+font-weight:500;
+padding:6px 12px;
+border-radius:8px;
+transition:0.25s;
+}
+
+.menu a:hover{
+background:#ffd86b;
+color:#000;
+box-shadow:0 2px 6px rgba(0,0,0,0.1);
+}
+.auth-buttons button{
+padding:8px 20px;
+border-radius:20px;
+border:none;
+cursor:pointer;
+margin-left:10px;
+font-weight:bold;
+}
+
+.btn-login{
+background:white;
+border:1px solid #ddd;
+}
+
+.btn-signup{
+background:var(--accent-blue);
+color:white;
+}
+
+/* banner tiêu đề */
+
+.page-title{
+text-align:center;
+padding:60px 20px;
+}
+
+.page-title h1{
+font-size:45px;
+}
+
+/* GRID tác phẩm */
+
+.tacpham-container{
+max-width:1200px;
+margin:auto;
+padding:30px;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:25px;
+}
+
+.tacpham-card{
+background:var(--card-bg);
+border-radius:20px;
+overflow:hidden;
+box-shadow:var(--shadow);
+transition:0.3s;
+cursor:pointer;
+}
+
+.tacpham-card:hover{
+transform:translateY(-8px);
+}
+
+.tacpham-img{
+width:100%;
+height:220px;     /* chiều cao khung ảnh */
+ /* tự cắt ảnh để vừa khung */
+border-top-left-radius:20px;
+border-top-right-radius:20px;
+display:block;
+}
+
+.tacpham-content{
+padding:20px;
+}
+
+.tacpham-content h3{
+margin:0;
+}
+
+.tacpham-content p{
+font-size:14px;
+color:#666;
+}
+
+/* popup chi tiết */
+
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+
+background:rgba(0,0,0,0.6);
+
+display:none;
+justify-content:center;
+align-items:center;
+
+z-index:1500;   /* cao hơn header */
+}
+.popup-box{
+background:white;
+padding:40px;
+border-radius:20px;
+width:800px;
+text-align:center;
+  max-height: 80vh;   /* chiều cao tối đa */
+    overflow-y: auto;   /* cho phép kéo xuống */
+}
+
+.close{
+position:absolute;
+top:20px;
+right:25px;
+font-size:28px;
+cursor:pointer;
+
+color:#333;
+
+z-index:2000;   /* QUAN TRỌNG */
+}
+.tacgia{
+    margin-top:5px;
+    margin-bottom:10px;
+    font-size:14px;
+}
+
+.tacgia b{
+    color:#000;
+    margin-right:8px;
+}
+.logo img{
+    height:40px;
+    width:auto;
+}
+
+.menu a{
+text-decoration:none;
+color:#333;
+margin:0 15px;
+font-weight:600;
+padding:6px 12px;
+border-radius:8px;
+transition:0.25s;
+}
+
+.menu a:hover{
+background:#ffd86b;
+}
+body{
+font-family:'Segoe UI',sans-serif;
+background:var(--primary-bg);
+margin:0;
+padding-top:80px;
+}
+.menu{
+display:flex;
+align-items:center;
+}
+.auth-buttons{
+display:flex;
+align-items:center;
+gap:10px;
+}
+body{
+font-family:'Segoe UI',sans-serif;
+background:var(--primary-bg);
+margin:0;
+padding-top:80px;
+}
+.popup-content{
+background:white;
+padding:30px;
+width:350px;
+border-radius:15px;
+text-align:center;
+position:relative;
+}
+
+.popup-content input{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+.submit-btn{
+width:100%;
+padding:10px;
+background:#4CAF50;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.submit-btn:hover{
+background:#45a049;
+}
+/* ===== MOBILE ===== */
+@media (max-width: 768px){
+
+header{
+flex-direction:column;
+gap:10px;
+padding:15px;
+}
+
+nav{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.banner{
+width:95%;
+margin-top:120px;
+}
+
+/* Sidebar biến mất trên điện thoại */
+.sidebar{
+display:none;
+}
+
+/* bỏ margin lớn */
+body{
+margin-left:0;
+}
+
+.container{
+margin-left:0;
+}
+
+/* grid tự xuống hàng */
+.grid-layout{
+grid-template-columns:1fr;
+}
+
+/* chữ hero nhỏ lại */
+.hero-content h1{
+font-size:30px;
+}
+
+.hero-content p{
+font-size:15px;
+}
+
+/* ảnh sách nhỏ lại */
+.book{
+width:70px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+     <div class="logo">
+    <img src="logosinh.png" alt="Logo Website">  
+</div>
+
+
+<nav class="menu">
+    <a href="nhom1.html">🏠Trang chủ</a>
+    <a href="nhom1muc2.html">📚Đào tạo</a>
+     <a href="tuyensinh.html">🎓 Tuyển Sinh</a>
+</nav>
+<div class="auth-buttons">
+<button class="btn-login" onclick="openLogin()">Đăng nhập</button>
+<button class="btn-signup" onclick="openRegister()">Đăng ký</button>
+</div>
+
+</header>
+
+<div class="page-title">
+<h1>Danh sách những trường tốt</h1>
+</div>
+
+<div class="tacpham-container">
+
+<!-- TÁC PHẨM 1 -->
+<div class="tacpham-card" onclick="openPopup('Đại học công nghệ')">
+<img src="dhcn.gif" class="tacpham-img">
+<div class="tacpham-content">
+<h3>Đại học công nghệ</h3>
+<p>Thuộc nhóm Đại học quốc gia Hà nội</p>
+</div>
+</div>
+
+<!-- TÁC PHẨM 2 -->
+<div class="tacpham-card" onclick="openPopup('Hutech')">
+<img src="hutech.jpg" class="tacpham-img">
+<div class="tacpham-content">
+<h3>Hutech</h3>
+<p>Khu vực Tphcm.</p>
+</div>
+</div>
+
+<!-- TÁC PHẨM 3 -->
+<div class="tacpham-card" onclick="openPopup('Hồng Bằng')">
+<img src="hongbang.jpg" class="tacpham-img">
+<div class="tacpham-content">
+<h3>Hồng bằng</h3>
+<p>Thuộc tphcm</p>
+</div>
+</div>
+
+<!-- TÁC PHẨM 4 -->
+<div class="tacpham-card" onclick="openPopup('Đại học Cần Thơ')">
+<img src="dhct.jpg" class="tacpham-img">
+<div class="tacpham-content">
+<h3>Đại học Cần Thơ</h3>
+<p>Thuộc khu vực miền Tây</p>
+</div>
+</div>
+
+<div class="tacpham-card" onclick="openPopup('Bách Khoa')">
+<img src="bku.jpg" class="tacpham-img">
+<div class="tacpham-content">
+<h3>Bách Khoa</h3>
+<p>Thuộc nhóm dhqg tphcm</p>
+</div>
+</div>
+
+<div class="tacpham-card" onclick="openPopup('Đại học Đồng Tháp')">
+<img src="SPD.jpg" class="tacpham-img">
+<div class="tacpham-content">
+<h3>Đại học Đồng Tháp</h3>
+<p>Thuộc Cao Lãnh</p>
+</div>
+</div>
+
+
+</div>
+
+
+<!-- POPUP -->
+
+<div class="popup" id="popup">
+
+<div class="close" onclick="closePopup()">✖</div>
+<div class="popup-box">
+
+<h2 id="popup-title"></h2>
+
+<p id="popup-content"></p>
+
+</div>
+
+</div>
+
+<script>
+
+function openPopup(title){
+
+let content="";
+
+if(title=="Đại học công nghệ"){
+content= ` Công nghệ thực phẩm, công nghệ sinh `    ;
+}
+
+if(title=="Hutech"){
+content=`Công nghệ thủy sản chương trình Hàn Quốc`;
+}
+if(title=="Hồng Bằng"){
+content=`Công nghệ sinh`;
+}
+if(title=="Đại học Cần Thơ"){
+content=`Công nghệ thực phẩm.`;
+}
+if(title=="Bách Khoa"){
+content=`Công nghệ sinh.`;
+}
+if(title=="Đại học Đồng Tháp"){
+content=`Công nghệ thực phẩm`;
+}
+
+
+
+document.getElementById("popup").style.display="flex";
+document.getElementById("popup-title").innerText=title;
+document.getElementById("popup-content").innerHTML = content;
+}
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
+
+</script>
+<!-- FORM ĐĂNG NHẬP -->
+<div id="loginForm" class="popup">
+<div class="popup-content">
+
+<span class="close" onclick="closeForm('loginForm')">&times;</span>
+
+<h2>Đăng nhập</h2>
+
+<input type="text" id="loginUser" placeholder="Tên đăng nhập">
+<input type="password" id="loginPass" placeholder="Mật khẩu">
+
+<button class="submit-btn" onclick="login()">Đăng nhập</button>
+
+<p>Chưa có tài khoản?
+<a href="#" onclick="switchToRegister()">Đăng ký</a>
+</p>
+
+</div>
+</div>
+
+<!-- FORM ĐĂNG KÝ -->
+
+<div id="registerForm" class="popup">
+<div class="popup-content">
+
+<span class="close" onclick="closeForm('registerForm')">&times;</span>
+
+<h2>Đăng ký</h2>
+
+<input type="text" id="regUser" placeholder="Tên đăng nhập">
+<input type="email" id="regEmail" placeholder="Email">
+<input type="password" id="regPass" placeholder="Mật khẩu">
+
+<button class="submit-btn" onclick="register()">Đăng ký</button>
+
+<p>Đã có tài khoản?
+<a href="#" onclick="switchToLogin()">Đăng nhập</a>
+</p>
+
+</div>
+</div>
+<script>
+
+function openLogin(){
+document.getElementById("loginForm").style.display="flex";
+}
+
+function openRegister(){
+document.getElementById("registerForm").style.display="flex";
+}
+
+function closeForm(id){
+document.getElementById(id).style.display="none";
+}
+
+function switchToRegister(){
+closeForm("loginForm");
+openRegister();
+}
+
+function switchToLogin(){
+closeForm("registerForm");
+openLogin();
+}
+
+function register(){
+
+let username=document.getElementById("regUser").value;
+let password=document.getElementById("regPass").value;
+
+localStorage.setItem("username",username);
+localStorage.setItem("password",password);
+
+alert("Đăng ký thành công");
+
+closeForm("registerForm");
+
+}
+
+function login(){
+
+let username=document.getElementById("loginUser").value;
+let password=document.getElementById("loginPass").value;
+
+let savedUser=localStorage.getItem("username");
+let savedPass=localStorage.getItem("password");
+
+if(username===savedUser && password===savedPass){
+
+alert("Đăng nhập thành công");
+
+localStorage.setItem("loggedUser",username);
+
+closeForm("loginForm");
+
+}
+else{
+
+alert("Sai tài khoản hoặc mật khẩu");
+
+}
+
+}
+
+</script>
+</body>
+</html>
